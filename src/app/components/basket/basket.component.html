@@ -1,0 +1,58 @@
+<div *ngIf="sellerName!=undefined">
+  <div *ngIf="activeOrderItems">
+    <div class="card m-5">
+      <div class="card-header bg-dark text-white">
+        <h4>Alışveriş Sepeti - {{this.sellerName}}</h4> 
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="custom-width-1">Dosya Başlığı</th>
+                <th class="custom-width-2">Sayfa Sayısı</th>
+                <th class="custom-width-3">Adet</th>
+                <th class="custom-width-4">Adet Fiyatı</th>
+                <th class="custom-width-5">Toplam Fiyatı</th>
+                <th class="custom-width-6">Güncelle</th>
+                <th class="custom-width-7">Sil</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let item of activeOrderItems">
+              <tr>
+                <td class="custom-width-1">{{item.fileTitle}}</td>
+                <td class="custom-width-2">{{item.numberOfPage}}</td>
+                <td class="custom-width-3">{{item.quantity}}</td>
+                <td class="custom-width-4">{{item.price}}₺</td>
+                <td class="custom-width-5">{{item.totalPrice}}₺</td>
+                <td class="custom-width-6"><button class="btn btn-primary"><i class="fa-solid fa-arrows-rotate" style="color: #ffffff;"></i></button></td>
+                <td class="custom-width-7"><button class="btn btn-danger" (click)="deleteProduct(item.productID)"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="float-end h5">
+          <b>Toplam Fiyat:</b> {{this.price}}₺
+        </div>
+        <br><br>
+        <div class="row">
+          <button class="btn btn-primary btn-lg col mx-2">Ürün Ekle</button>
+          <button class="btn btn-success btn-lg col mx-2" (click)="placeOrder()">Sepeti Onayla</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="sellerName == undefined">
+  <div style="height: 83vh;display: flex;justify-content: center;align-items: center;">
+    <div class="container-fluid">
+      <div class="row text-center">
+        <div class="col w-100 text-center"><b>Alışveriş Sepetiniz Boş</b></div>
+      </div><br>
+      <div class="row text-center">
+        <div class="col w-100 text-center"><button class="btn btn-primary btn-dark text-white btn-lg" routerLink="seller">Alışverişe Başla</button></div>
+      </div>
+    </div>
+
+  </div>
+</div>

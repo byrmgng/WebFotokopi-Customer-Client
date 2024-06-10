@@ -1,0 +1,96 @@
+<!-- Filter Package Container -->
+<div class="card m-5">
+  <h5 class="card-header bg-dark text-white">Kırtasiye Ara</h5>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-2"><label for="filterSellerName" class="form-label"><b>Kırtasiye Adı: </b></label></div>
+      <div class="col-10"><input #filterSellerName type="text" class="form-control border-0 border-bottom rounded-0" name="filterSellerName" id="filterSellerName" placeholder="Kırtasiye Adı" required></div>
+    </div>
+      <div class="row">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                Baskı Seçeneklerine Göre Ara
+              </button>
+            </h2>
+          <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <div class="row">
+                <div class="col"><label for="filterPaperSize" class="form-label"><b>Kağıt Boyu</b></label></div>
+                <div class="col"><label for="filterPaperType" class="form-label"><b>Kağıt Türü</b></label></div>
+                <div class="col"><label for="filterSheetsPerPage" class="form-label"><b>Bir yüzdeki sayfa sayısı</b></label></div>
+                <div class="col"><label for="filterColorMode" class="form-label"><b>Renk Seçeneği</b></label></div>
+                <div class="col"><label for="filterDuplexMode" class="form-label"><b>Baskı Seçeneği</b></label></div>
+              </div>
+              <div class="row"> 
+                <div class="col">
+                  <select #filterPaperSize class="form-control form-select border-0 border-bottom rounded-0" id="filterPaperSize" name="filterPaperSize">
+                    <option value='' selected>Tümü</option>
+                    <option *ngFor="let papersize of packageFeature?.paperSizes" [value]="papersize.paperSizeID">{{papersize.paperSizeName}}</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <select #filterPaperType class="form-control form-select border-0 border-bottom rounded-0" id="filterPaperType" name="filterPaperType">
+                    <option value='' selected>Tümü</option>
+                    <option *ngFor="let papertype of packageFeature?.paperTypes" [value]="papertype.paperTypeID">{{papertype.paperTypeName}}</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <select #filterSheetsPerPage class="form-control form-select border-0 border-bottom rounded-0" id="filterSheetsPerPage" name="filterSheetsPerPage">
+                    <option value='' selected>Tümü</option>
+                    <option *ngFor="let sheetsperpage of packageFeature?.sheetsPerPages" [value]="sheetsperpage.sheetsPerPageID">{{sheetsperpage.sheetsPerPageNumber}}</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <select #filterColorMode class="form-control form-select border-0 border-bottom rounded-0" id="filterColorMode" name="filterColorMode">
+                    <option value='' selected>Tümü</option>
+                    <option value='true'>Renkli</option>
+                    <option value='false'>Siyah-Beyaz</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <select #filterDuplexMode class="form-control form-select border-0 border-bottom rounded-0" id="filterDuplexMode" name="filterDuplexMode">
+                    <option value='' selected>Tümü</option>
+                    <option value='false'>Tek Yüz</option>
+                    <option value='true'>Arkalı Önlü</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="float-end w-25 row">
+      <button (click)="filter()" class="btn btn-dark m-2 w-50 col">Filtele</button>
+      <button (click)="clearFilter()" class="btn btn-primary m-2 w-50 col">Temizle</button>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid col-11">
+  <div class="row">
+    <div class="col-4" *ngFor="let seller of sellers">
+      <a [routerLink]="['/shopping']" [queryParams]="{ sellerID: seller.sellerID }" style="text-decoration: none;">
+        <div class="mb-3" id={{seller.sellerID}}>
+          <div class="card m-2">
+            <div class="row g-0">
+              <div  class="col-md-4">
+                <img src="data:image/png;base64, {{seller.logo}}" alt="logo" class="img-fluid rounded-start"/>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">{{seller.companyName}}</h5>
+                  <p class="card-text">{{seller.address}}</p>
+                  <p class="card-text float-end"><small class="text-muted">{{seller.districtName}}</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>  
+    </div>
+  </div>
+</div>
+

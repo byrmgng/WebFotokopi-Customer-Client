@@ -1,0 +1,239 @@
+<div class="card m-2 mb-3">
+  <h5 class="card-header bg-dark text-white">Dosya Ara</h5>
+  <div class="card-body">
+    <div class="row">
+      <div class="col"><label for="fileTitleFilter" class="form-label"><b>Dosya Başlığı</b></label></div>
+      <div class="col"><label for="fileNoteFilter" class="form-label"><b>Dosya Notu</b></label></div>
+    </div>
+    <div class="row"> 
+      <div class="col"><input #fileTitleFilter type="text" class="form-control border-0 border-bottom rounded-0" name="fileTitleFilter" id="fileTitleFilter" placeholder="Dosya Başlığı" required></div>
+      <div class="col"><input #fileNoteFilter type="text" class="form-control border-0 border-bottom rounded-0" name="fileNoteFilter" id="fileNoteFilter" placeholder="Dosya Notu" required></div>
+    </div>
+    <br>
+    <div>
+      <div class="float-start w-25">
+        <button class="btn btn-success m-2 w-50" (click)="clearModal();this.customFile=true;" data-bs-target="#fileFeaturesModal" data-bs-toggle="modal">Dosya Ekle</button>
+      </div>
+      <div class="float-end w-25 row">
+        <button (click)="filter()" class="btn btn-dark m-2 w-50 col">Filtele</button>
+        <button (click)="clearFilter()" class="btn btn-primary m-2 w-50 col">Temizle</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- Add File Modal -->
+  <div class="modal fade" id="fileFeaturesModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="fileFeaturesLabel" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="fileFeaturesLabel">Dosya Ekle</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+          <div class="row">
+            <div class="col-3"><label for="fileTitleModal" class="form-label"><b>Dosya Başlığı:</b></label></div>
+            <div class="col-9"><input #fileTitleModal  type="text" class="form-control border-0 border-bottom rounded-0 is-valid" name="fileTitleModal" id="fileTitleModal" placeholder="Dosya Başlığı" required></div>
+          </div><br>
+          <div class="row">
+            <div class="col-3"><label for="fileNoteModal" class="form-label"><b>Dosya Notu:</b></label></div>
+            <div class="col-9"><input #fileNoteModal  type="text" class="form-control border-0 border-bottom rounded-0 is-valid" name="fileNoteModal" id="fileNoteModal" placeholder="Dosya Notu" required></div>
+          </div><br>
+          <div class="row">
+            <div class="col-3"><label for="fileContentModal" class="form-label"><b>Dosya:</b></label></div>
+            <div class="col-9"><input #fileContentModal class="form-control" type="file" id="fileContentModal" accept="application/pdf"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="row w-100">
+            <button class="btn btn-danger w-50 col mx-2" data-bs-dismiss="modal" >İptal Et</button>
+            <button class="btn btn-success w-50 col mx-2" data-bs-target="#selectPackageModal" data-bs-toggle="modal" (click)="nextClickSelectPackage()">İleri</button>        
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Select Package Modal-->
+  <div class="modal fade" id="selectPackageModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="selectPackageModalLabel" tabindex="-1">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="selectPackageModalLabel">Paket Seç</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row card m-2">
+            <h5 class="card-header bg-dark text-white">Paket seçenekleri</h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col"><label for="filterPackageName" class="form-label"><b>Paket Adı</b></label></div>
+                    <div class="col"><label for="filterPaperSize" class="form-label"><b>Kağıt Boyu</b></label></div>
+                    <div class="col"><label for="filterPaperType" class="form-label"><b>Kağıt Türü</b></label></div>
+                    <div class="col"><label for="filterSheetsPerPage" class="form-label"><b>Bir yüzdeki sayfa sayısı</b></label></div>
+                    <div class="col"><label for="filterColorMode" class="form-label"><b>Renk Seçeneği</b></label></div>
+                    <div class="col"><label for="filterDuplexMode" class="form-label"><b>Baskı Seçeneği</b></label></div>
+                </div>
+                <div class="row"> 
+                    <div class="col">
+                        <input #filterName type="text" class="form-control border-0 border-bottom rounded-0" name="filterPackageName" id="filterPackageName" placeholder="Paket Adı" required>
+                    </div>
+                    <div class="col">
+                      <select #filterPaperSize class="form-control form-select border-0 border-bottom rounded-0" id="filterPaperSize" name="filterPaperSize">
+                        <option value='' selected>Tümü</option>
+                        <option *ngFor="let papersize of packageFeature?.paperSizes" [value]="papersize.paperSizeID">{{papersize.paperSizeName}}</option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <select #filterPaperType class="form-control form-select border-0 border-bottom rounded-0" id="filterPaperType" name="filterPaperType">
+                        <option value='' selected>Tümü</option>
+                        <option *ngFor="let papertype of packageFeature?.paperTypes" [value]="papertype.paperTypeID">{{papertype.paperTypeName}}</option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <select #filterSheetsPerPage class="form-control form-select border-0 border-bottom rounded-0" id="filterSheetsPerPage" name="filterSheetsPerPage">
+                        <option value='' selected>Tümü</option>
+                        <option *ngFor="let sheetsperpage of packageFeature?.sheetsPerPages" [value]="sheetsperpage.sheetsPerPageID">{{sheetsperpage.sheetsPerPageNumber}}</option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <select #filterColorMode class="form-control form-select border-0 border-bottom rounded-0" id="filterColorMode" name="filterColorMode">
+                        <option value='' selected>Tümü</option>
+                        <option value='true'>Renkli</option>
+                        <option value='false'>Siyah-Beyaz</option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <select #filterDuplexMode class="form-control form-select border-0 border-bottom rounded-0" id="filterDuplexMode" name="filterDuplexMode">
+                        <option value='' selected>Tümü</option>
+                        <option value='false'>Tek Yüz</option>
+                        <option value='true'>Arkalı Önlü</option>
+                      </select>
+                    </div>
+                </div>
+                <br>
+                <div class="float-end w-25 row">
+                    <button (click)="filterPackage()" class="btn btn-dark m-2 w-50 col">Filtele</button>
+                    <button (click)="clearFilterPackage()" class="btn btn-primary m-2 w-50 col">Temizle</button>
+                  </div>
+            </div>
+        </div>
+          <div class="row card m-2 my-4" *ngFor="let package of packages" id="{{package.packageID}}">
+            <h5 class="card-header bg-muted text-dark">Paket Adı : {{package.packageName}}</h5>
+            <div class="card-body text-center">
+              <div class="row">
+                <div class="col-11">
+                  <div class="row">
+                    <div class="col"><label class="form-label"><b>Kağıt Boyu</b></label></div>
+                    <div class="col"><label class="form-label"><b>Kağıt Türü</b></label></div>
+                    <div class="col"><label class="form-label"><b>Bir yüzdeki sayfa sayısı</b></label></div>
+                    <div class="col"><label class="form-label"><b>Renk Seçeneği</b></label></div>
+                    <div class="col"><label class="form-label"><b>Baskı Seçeneği</b></label></div>
+                    <div class="col"><label class="form-label"><b>Kağıt Başına Fiyat</b></label></div>
+  
+                  </div>
+                  <div class="row"> 
+                      <div class="col"><label class="form-label">{{package.paperSize.paperSizeName}}</label></div>
+                      <div class="col"><label class="form-label">{{package.paperType.paperTypeName}}</label></div>
+                      <div class="col"><label class="form-label">{{package.sheetsPerPage.sheetsPerPageNumber}}</label></div>
+                      <div class="col"><label class="form-label">{{package?.colorMode ? 'Renkli' : 'Siyah-Beyaz' }}</label></div>
+                      <div class="col"><label class="form-label">{{package?.duplexMode ? 'Arkalı-Önlü' : 'Tek Yüz' }}</label></div>
+                      <div class="col"><label class="form-label">{{package.price}} TL</label></div>
+                  </div>
+                </div>
+                <div class="col-1 ">
+                  <button type="button" class="btn btn-success btn-xl h-100 w-100" data-bs-target="#addProductModal" data-bs-toggle="modal" (click)="this.createProduct.packageID = package.packageID">İleri</button>
+                </div>
+              </div>
+
+            </div>
+        </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+<!-- Add Product Modal -->
+<div class="modal fade" id="addProductModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="addProductModalLabel" tabindex="-1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addProductModalLabel">Ürün Ekle</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-3"><label for="productQuantityModal" class="form-label"><b>Kopya Sayısı:</b></label></div>
+          <div class="col-9"><input #productQuantityModal  type="number" class="form-control border-0 border-bottom rounded-0" name="productQuantityModal" id="productQuantityModal" minlength="0" value="1" placeholder="Kopya Sayısı" required></div>
+        </div><br>
+        <div class="row">
+          <div class="col-3"><label for="productNoteModal" class="form-label"><b>Ürün Notu:</b></label></div>
+          <div class="col-9"><input #productNoteModal  type="text" class="form-control border-0 border-bottom rounded-0" name="productNoteModal" id="productNoteModal" placeholder="Ürün Notu"  required></div>
+        </div><br>
+      </div>
+      <div class="modal-footer">
+        <div class="row w-100">
+          <button class="btn btn-danger w-50 col mx-2" data-bs-dismiss="modal">İptal Et</button>
+          <button class="btn btn-success w-50 col mx-2" data-bs-dismiss="modal" (click)="createProductModal()">Sepete Ekle</button>        
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ <!-- Dinamic File Container-->
+<div>
+  <div class="container-fluid">
+    <div class="row">
+          <div *ngFor="let file of files" class="mb-3 col-6" id={{file.id}}>
+            <div class="card">
+              <h4 class="card-header bg-muted text-dark">{{file.fileTitle}}</h4>
+              <div class="card-body">
+                <h5 class="card-title"></h5>
+                <div class="row">
+                  <div class="col-10">
+                    <p class="card-text"><b>Dosya Açıklaması: </b>{{file.fileNote}}</p>
+                    <p class="card-text"><b>Sayfa Sayısı: </b>{{file.numberOfPage}}</p>
+                  </div>
+                  <div class="col-2">
+                    <a class="btn btn-primary m-2 w-100" data-bs-target="#fileViewModal" data-bs-toggle="modal" (click)="viewModalFill(file.id);this.updateFileID = file.id;this.createProduct.fileID=file.id;this.customFile=false">Görüntüle</a>
+                    <a class="btn btn-success m-2 w-100" data-bs-target="#selectPackageModal" data-bs-toggle="modal" (click)="nextClickSelectPackage();this.createProduct.fileID=file.id;this.customFile=false">Sepete Ekle</a>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer text-muted">
+                <div class="row float-end">
+                  <div class="col ms-2"><b>Oluşturma Tarihi: </b> {{file.createdDate}}</div>
+                </div>
+                <div class="row float-end">
+                  <div class="col " *ngIf="file.updatedDate"><b>Son Güncelleme Tarihi: </b> {{file.updatedDate}}</div>
+                </div>          
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+</div>
+<!-- File View Full Screen Modal -->
+<div class="modal fade" id="fileViewModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="fileViewModalLabel" tabindex="-1">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="fileViewModalLabel">Dosya Görüntüle</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-8" #pdfContent id="pdfContent"></div>
+          <div class="col-4 p-3">
+            <label class="form-label"><b>Dosya Başlığı</b></label><br>
+            <label class="form-label" name="fileTitleViewModal"  id="fileTitleViewModal" #fileTitleViewModal></label><br>
+            <label class="form-label"><b>Dosya Açıklaması</b></label><br>
+            <label class="form-label" name="fileNoteViewModal"  id="fileNoteViewModal" #fileNoteViewModal></label><br>
+          </div>
+        </div>
+      </div> 
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary w-50 col mx-2" data-bs-dismiss="modal">Geri Dön</button>
+          <button type="button" class="btn btn-success w-50 col mx-2" data-bs-target="#selectPackageModal" data-bs-toggle="modal" (click)="nextClickSelectPackage();">Sepete Ekle</button>
+      </div>
+    </div>
+  </div>
+</div>

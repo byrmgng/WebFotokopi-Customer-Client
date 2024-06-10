@@ -1,0 +1,78 @@
+<!-- Filter Container-->
+<div class="row card m-2">
+    <h5 class="card-header bg-dark text-white">Paket seçenekleri</h5>
+    <div class="card-body">
+        <div class="row">
+            <div class="col"><label for="filterPackageName" class="form-label"><b>Paket Adı</b></label></div>
+            <div class="col"><label for="filterPaperSize" class="form-label"><b>Kağıt Boyu</b></label></div>
+            <div class="col"><label for="filterPaperType" class="form-label"><b>Kağıt Türü</b></label></div>
+            <div class="col"><label for="filterSheetsPerPage" class="form-label"><b>Bir yüzdeki sayfa sayısı</b></label></div>
+            <div class="col"><label for="filterColorMode" class="form-label"><b>Renk Seçeneği</b></label></div>
+            <div class="col"><label for="filterDuplexMode" class="form-label"><b>Baskı Seçeneği</b></label></div>
+        </div>
+        <div class="row"> 
+            <div class="col">
+                <input #filterName type="text" class="form-control border-0 border-bottom rounded-0" name="filterPackageName" id="filterPackageName" placeholder="Paket Adı" required>
+            </div>
+            <div class="col">
+              <select #filterPaperSize class="form-control form-select border-0 border-bottom rounded-0" id="filterPaperSize" name="filterPaperSize">
+                <option value='' selected>Tümü</option>
+                <option *ngFor="let papersize of packageFeature?.paperSizes" [value]="papersize.paperSizeID">{{papersize.paperSizeName}}</option>
+              </select>
+            </div>
+            <div class="col">
+              <select #filterPaperType class="form-control form-select border-0 border-bottom rounded-0" id="filterPaperType" name="filterPaperType">
+                <option value='' selected>Tümü</option>
+                <option *ngFor="let papertype of packageFeature?.paperTypes" [value]="papertype.paperTypeID">{{papertype.paperTypeName}}</option>
+              </select>
+            </div>
+            <div class="col">
+              <select #filterSheetsPerPage class="form-control form-select border-0 border-bottom rounded-0" id="filterSheetsPerPage" name="filterSheetsPerPage">
+                <option value='' selected>Tümü</option>
+                <option *ngFor="let sheetsperpage of packageFeature?.sheetsPerPages" [value]="sheetsperpage.sheetsPerPageID">{{sheetsperpage.sheetsPerPageNumber}}</option>
+              </select>
+            </div>
+            <div class="col">
+              <select #filterColorMode class="form-control form-select border-0 border-bottom rounded-0" id="filterColorMode" name="filterColorMode">
+                <option value='' selected>Tümü</option>
+                <option value='true'>Renkli</option>
+                <option value='false'>Siyah-Beyaz</option>
+              </select>
+            </div>
+            <div class="col">
+              <select #filterDuplexMode class="form-control form-select border-0 border-bottom rounded-0" id="filterDuplexMode" name="filterDuplexMode">
+                <option value='' selected>Tümü</option>
+                <option value='false'>Tek Yüz</option>
+                <option value='true'>Arkalı Önlü</option>
+              </select>
+            </div>
+        </div>
+        <br>
+        <div class="float-end w-25 row">
+            <button (click)="filter()" class="btn btn-dark m-2 w-50 col">Filtele</button>
+            <button (click)="clearFilter()" class="btn btn-primary m-2 w-50 col">Temizle</button>
+          </div>
+    </div>
+</div>
+<!-- Package Container-->
+<div class="row card m-2 my-4" *ngFor="let package of packages" id="{{package.packageID}}">
+    <h5 class="card-header bg-muted text-dark">Paket Adı : {{package.packageName}}</h5>
+    <div class="card-body text-center">
+        <div class="row">
+            <div class="col"><label class="form-label"><b>Kağıt Boyu</b></label></div>
+            <div class="col"><label class="form-label"><b>Kağıt Türü</b></label></div>
+            <div class="col"><label class="form-label"><b>Bir yüzdeki sayfa sayısı</b></label></div>
+            <div class="col"><label class="form-label"><b>Renk Seçeneği</b></label></div>
+            <div class="col"><label class="form-label"><b>Baskı Seçeneği</b></label></div>
+            <div class="col"><label class="form-label"><b>Fiyat</b></label></div>
+        </div>
+        <div class="row"> 
+            <div class="col"><label class="form-label">{{package.paperSize.paperSizeName}}</label></div>
+            <div class="col"><label class="form-label">{{package.paperType.paperTypeName}}</label></div>
+            <div class="col"><label class="form-label">{{package.sheetsPerPage.sheetsPerPageNumber}}</label></div>
+            <div class="col"><label class="form-label">{{package?.colorMode ? 'Renkli' : 'Siyah-Beyaz' }}</label></div>
+            <div class="col"><label class="form-label">{{package?.duplexMode ? 'Arkalı-Önlü' : 'Tek Yüz' }}</label></div>
+            <div class="col"><label class="form-label">{{package.price}} TL</label></div>
+        </div>
+    </div>
+</div>
