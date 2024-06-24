@@ -1,3 +1,11 @@
+Proje Detayları, BitirmeRaporu.pdf isimli bitirme raporunda anlatılmıştır.
+
+API Projesi
+https://github.com/byrmgng/WebFotokopi-API
+
+Satıcı Client Projesi
+https://github.com/byrmgng/WebFotokopi-Seller-Client
+
 # WebFotokopiCustomer
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.1.
